@@ -1,1 +1,1 @@
-web: heroku-php-nginx -c nginx.conf -p $PORT
+web: heroku-php-nginx -c nginx.conf
