@@ -1,0 +1,2 @@
+toolforge build start -L --image-name forwarder-fake-nginx https://github.com/nokibsarkar/toolforge-forwarder.git --ref main
+toolforge webservice buildservice restart --mount all --buildservice-image tools-harbor.wmcloud.org/tool-forwarder/forwarder-fake-nginx:latest
