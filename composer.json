@@ -1,0 +1,8 @@
+{
+    "require": {
+        "php": "^8.2"
+    },
+    "scripts": {
+        "test": "echo 'Running tests...'"
+    }
+}
