@@ -1,1 +1,1 @@
-web: heroku-php-nginx
+web: php -S 0.0.0.0:8000 api.php
