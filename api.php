@@ -138,7 +138,7 @@ function getRequestHeadersCompat(): array
         if (is_array($all)) {
             foreach ($all as $name => $value) {
                 if (is_string($name) && is_string($value)) {
-                    $headers[$name] = $value;
+                    $headers[canonicalHeaderName($name)] = $value;
                 }
             }
         }
@@ -152,7 +152,7 @@ function getRequestHeadersCompat(): array
         if (str_starts_with($key, 'HTTP_')) {
             $name = substr($key, 5);
             $name = str_replace('_', '-', strtolower($name));
-            $name = implode('-', array_map('ucfirst', explode('-', $name)));
+            $name = canonicalHeaderName($name);
 
             if (!isset($headers[$name])) {
                 $headers[$name] = $value;
@@ -177,7 +177,12 @@ function getRequestHeadersCompat(): array
 
     return $headers;
 }
-
+// Header names are case-insensitive; normalise so the same header is never added twice
+// (a duplicated Authorization header makes Wikimedia reject the JWT).
+function canonicalHeaderName(string $name): string
+{
+    return implode('-', array_map('ucfirst', explode('-', strtolower($name))));
+}
 function requestMayHaveBody(string $method): bool
 {
     return !in_array($method, ['GET', 'HEAD'], true);
